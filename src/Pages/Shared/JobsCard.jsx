@@ -5,14 +5,13 @@ const JobsCard = ({ jobs }) => {
   const {
     title,
     location,
-    jobType,
-    category,
     company_logo,
     requirements,
     company,
     applicationDeadline,
     description,
     salaryRange,
+    _id,
   } = jobs;
   return (
     <div className="card bg-base-100 w-96 shadow-sm">
@@ -45,7 +44,9 @@ const JobsCard = ({ jobs }) => {
           ))}
         </div>
         <div className="card-actions justify-end mt-2">
-          <Link className="btn btn-primary">Apply Now</Link>
+          <Link to={`/jobs/${_id}`} className="btn btn-primary">
+            Show Details
+          </Link>
         </div>
       </div>
     </div>
