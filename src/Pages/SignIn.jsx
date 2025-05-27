@@ -2,9 +2,14 @@ import React, { use } from "react";
 import { AuthContext } from "../Context/AuthContext/AuthContext";
 import Lottie from "lottie-react";
 import Login from "../assets/Login.json";
+import { useLocation } from "react-router";
+import { useNavigate } from "react-router";
 
 const SignIn = () => {
   const { signInUser } = use(AuthContext);
+  const location = useLocation();
+  const from = location.state || "/";
+  const navigate = useNavigate();
   const handleSignIn = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -17,7 +22,10 @@ const SignIn = () => {
 
     // signIn user
     signInUser(email, password)
-      .then((res) => console.log(res.user))
+      .then((res) => {
+        console.log(res.user);
+        navigate(from);
+      })
       .catch((error) => {
         console.log(error);
       });

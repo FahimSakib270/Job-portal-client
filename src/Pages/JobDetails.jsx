@@ -3,6 +3,7 @@ import { Link, useLoaderData } from "react-router";
 
 const JobDetails = () => {
   const job = useLoaderData();
+  const { _id } = job;
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -104,7 +105,9 @@ const JobDetails = () => {
           </p>
         </div>
         <div className="card-actions justify-end my-2">
-          <Link className="btn btn-primary">Apply Now</Link>
+          <Link to={`/jobApply/${_id}`} className="btn btn-primary">
+            Apply Now
+          </Link>
         </div>
       </div>
     </div>
