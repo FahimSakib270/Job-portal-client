@@ -32,7 +32,7 @@ const Banner = () => {
           initial={{ x: -50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="flex-1 text-center lg:text-left space-y-6"
+          className="flex-1 text-center lg:text-left space-y-6 "
         >
           <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
             Find your dream{" "}
@@ -45,12 +45,12 @@ const Banner = () => {
               job
             </motion.span>
           </h1>
-          <p className="py-2 text-lg text-gray-300 max-w-lg mx-auto lg:mx-0">
+          <p className="py-2 text-lg text-gray-500 max-w-lg mx-auto lg:mx-0">
             Your next career move is just one application away. Explore
             thousands of remote, hybrid, and full-time opportunities across top
             tech companies.
           </p>
-          <ul className="space-y-2 text-gray-300 text-left max-w-md mx-auto lg:mx-0">
+          <ul className="space-y-2 text-gray-500 text-left max-w-md mx-auto lg:mx-0">
             <li className="flex items-center gap-2">
               🔹 <span>Apply to jobs in seconds</span>
             </li>

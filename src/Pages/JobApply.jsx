@@ -1,6 +1,8 @@
 import React, { use } from "react";
 import { Link, useParams } from "react-router";
 import { AuthContext } from "../Context/AuthContext/AuthContext";
+import axios from "axios";
+import Swal from "sweetalert2";
 // import useAuth from "../Hooks/useAuth";
 
 const JobApply = () => {
@@ -17,11 +19,30 @@ const JobApply = () => {
     const github = form.github.value;
     const portfolio = form.portfolio.value;
     const applyInfo = {
+      jobId,
+      applicant: user.email,
       linkedIn,
       portfolio,
       github,
     };
     console.log(applyInfo);
+    axios
+      .post("http://localhost:3000/applications", applyInfo)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: "top",
+            icon: "success",
+            title: "Application have been Submitted",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -42,7 +63,7 @@ const JobApply = () => {
             <input
               type="url"
               className="input input-bordered w-full"
-              placeholder="LinkenIn profile Link"
+              placeholder="LinkedIn profile Link"
               name="linkedin"
             />
           </div>
@@ -66,7 +87,7 @@ const JobApply = () => {
             <input
               type="url"
               className="input input-bordered w-full"
-              placeholder="Website Link"
+              placeholder="Portfolio Website Link"
               name="portfolio"
             />
           </div>
