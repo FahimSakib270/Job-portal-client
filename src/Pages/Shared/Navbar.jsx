@@ -1,28 +1,36 @@
-import React, { use } from "react";
-import { NavLink } from "react-router";
+import React, { use, useContext } from "react";
+import { NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
 
 const Navbar = () => {
   const { user, logOut } = use(AuthContext);
-  const handleSignOut = () => {
-    logOut()
-      .then(() => {
-        // Sign-out successful.
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  };
+  const navigate = useNavigate();
   const links = (
     <>
       <li>
         <NavLink to="/">Home</NavLink>
-        <NavLink to=""></NavLink>
+      </li>
+      <li>
+        <NavLink to="/">Jobs</NavLink>
+      </li>
+      <li>
+        <NavLink to="/">About</NavLink>
       </li>
     </>
   );
+
+  const handleSignOut = () => {
+    logOut()
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Logout failed:", error);
+      });
+  };
+
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -33,27 +41,28 @@ const Navbar = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              {" "}
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             </svg>
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             {links}
           </ul>
         </div>
         <a className="btn btn-ghost text-xl">CareerCode</a>
       </div>
+
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
+
       <div className="navbar-end">
         {user ? (
           <button onClick={handleSignOut} className="btn">
@@ -61,11 +70,11 @@ const Navbar = () => {
           </button>
         ) : (
           <>
-            <NavLink className="btn" to="/register">
+            <NavLink className="btn btn-ghost" to="/register">
               Register
             </NavLink>
             <NavLink className="btn" to="/sign-in">
-              Sign in
+              Sign In
             </NavLink>
           </>
         )}
