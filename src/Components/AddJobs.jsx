@@ -1,5 +1,7 @@
 import React, { use } from "react";
 import { AuthContext } from "../Context/AuthContext/AuthContext";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const AddJobs = () => {
   const { user } = use(AuthContext);
@@ -21,8 +23,28 @@ const AddJobs = () => {
       .split(",")
       .map((req) => req.trim());
     newJobs.responsibilities = responsibilities2;
+    newJobs.status = "active";
 
     console.log(newJobs);
+
+    // save job to db
+    axios
+      .post("http://localhost:3000/jobs", newJobs)
+      .then((res) => {
+        console.log(res);
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: "top",
+            icon: "success",
+            title: "Your work has been Post Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <div className="p-6 max-w-xl mx-auto">
@@ -239,7 +261,6 @@ const AddJobs = () => {
               type="text"
               id="hr-name"
               name="hr_name"
-              defaultValue={user.email}
               className="input w-full"
               placeholder="HR Manager Name"
             />
@@ -250,6 +271,7 @@ const AddJobs = () => {
               HR Email
             </label>
             <input
+              defaultValue={user.email}
               type="email"
               id="hr-email"
               name="hr_email"
