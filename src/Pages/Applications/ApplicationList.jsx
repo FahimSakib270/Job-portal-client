@@ -2,7 +2,6 @@ import React, { use } from "react";
 
 const ApplicationList = ({ myApplicationsPromise }) => {
   const applications = use(myApplicationsPromise);
-
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold text-center mb-6">
@@ -11,13 +10,13 @@ const ApplicationList = ({ myApplicationsPromise }) => {
 
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
-          {/* head */}
           <thead>
             <tr>
-              <th>Job ID</th>
+              <th>Logo</th>
+              <th>Company</th>
               <th>Applicant</th>
-              <th>LinkedIn</th>
-              <th>Portfolio</th>
+              <th>Title</th>
+              <th>Port</th>
               <th>GitHub</th>
               <th>Actions</th>
             </tr>
@@ -25,18 +24,12 @@ const ApplicationList = ({ myApplicationsPromise }) => {
           <tbody>
             {applications.map((app) => (
               <tr key={app._id}>
-                <td>{app.jobId}</td>
-                <td>{app.applicant}</td>
                 <td>
-                  <a
-                    href={app.linkedIn}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="link link-primary"
-                  >
-                    Profile
-                  </a>
+                  <img className="h-15 w-15" src={app.company_logo} alt="" />
                 </td>
+                <td>{app.company}</td>
+                <td>{app.applicant}</td>
+                <td>{app.title}</td>
                 <td>
                   <a
                     href={app.portfolio}
